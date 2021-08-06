@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>{{ category.title }} | Blog | WebTechh Solutions</title>
+    <meta name="description" content="Blogs for WebTechh Solutions" />
+    <meta name="keywords" content="Blog, SEO, Digital Marketing" />{% endblock %}
+{% block content %}<!-- ++++ Most Bold Title ++++ -->
+    <section class="blog-title">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Blog</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ++++ Most Bold Title ++++ -->
+    <!-- ++++ blog standard content ++++ -->
+    <section class="page-section bg-white o-hidden blog-content">
+        <div class="container relative">
+            <div class="row">
+                <!-- Content -->
+                <div class="col-sm-8">
+                    {% for post in posts %}<!-- Post -->
+                    <div class="blog-item">
+                        <!-- Post Title -->
+                        <h2 class="blog-item-title font-alt"><a href="{{ post.get_absolute_url }}l">{{ post.title|upper }}</a></h2>
+                        <!-- Date, Categories, Author, Comments -->
+                        <div class="blog-item-data"> <a href="javascript:void(0)"><i class="icon-calendar-full"></i> {{ post.created_on|date:'d F, Y' }}</a> <span class="separator">&nbsp;</span> <a href="javascript:void(0)"><i class="icon-list4"></i> {{ post.category.title }}</a> <span class="separator">&nbsp;</span>
+                            <br class="visible-xs">
+                            <a href="javascript:void(0)"><i class="icon-user"></i> {{ post.author.name|title }}</a> <span class="separator">&nbsp;</span> <a href="javascript:void(0)"><i class="icon-bubbles"></i> Comments ({{ post.comment_set.all.count }})</a> </div>
+                        <!-- Media Gallery -->
+                        <div class="blog-media">
+                            <ul class="clearlist content-slider">
+                                <li>
+                                	{% thumbnail post.banner "750x329" crop="center" as im %}<img src="{{ im.url }}" alt="" />{% endthumbnail %}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Text Intro -->
+                        <div class="blog-item-body">
+                            {{ post.content|safe|truncatechars:225 }}
+                        </div>
+                        <!-- Read More Link -->
+                        <div class="blog-item-foot"> <a href="{{ post.get_absolute_url }}" class="medium-btn3 btn btn-nofill green-text">Read More</a> </div>
+                    </div>
+                    {% empty %}<h4>No Posts Found</h4>
+                    <!-- End Post -->{% endfor %}
+                    <!-- Pagination -->
+                    <ul class="pagination top-margin0">
+                        <li class="page-item{% if not posts.has_previous %} disabled{% endif %}"> <a class="page-link" href="{% if posts.has_previous %}?page={{ posts.previous_page_number }}{% else %}javascript:void(){% endif %}" tabindex="-1"><span class="icon-chevron-left"></span></a> </li>
+                    	{% for p in posts.paginator.page_range %}
+                        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                        {% endfor %}
+                        <li class="page-item{% if not posts.has_next %} disabled{% endif %}"> <a class="page-link" href="{% if posts.has_next %}?page={{ posts.next_page_number }}{% else %}javascript:void(){% endif %}"><span class="icon-chevron-right"></span></a> </li>
+                    </ul>
+                    <!-- End Pagination -->
+                </div>
+                <!-- End Content -->
+                {% include 'blog/sidebar.html' %}
+            </div>
+        </div>
+    </section>
+    <!-- ++++ end blog Standard content ++++ -->{% endblock %}

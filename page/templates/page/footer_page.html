@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>{{ page.title }}</title>{% endblock %}
+{% block content %}
+<!-- ++++ Most Bold Title ++++ -->
+<section class="blog-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>{{ page.title }}</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ++++ Most Bold Title ++++ -->
+<!-- ++++ blog content ++++ -->
+<section class="bg-white privecy-content ">
+    <!--blog content row one-->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {{ page.content|safe }}
+            </div>
+        </div>
+    </div>
+    <!--end blog content row one-->
+</section>
+{% endblock %}

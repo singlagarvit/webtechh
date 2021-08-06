@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% load custom_filters %}
+{% block meta %}<title>WebTechh Solutions</title>
+<meta name="description" content="WebTechh Solutions! The best digital marketing agency" />
+<meta name="keywords" content="Digital Solutions" />{% endblock %}
+{% block content %}
+{% if slides.count %}<!--carousel-->
+<!-- SLIDER -->
+<div class="main-slider">
+    <div class="content">
+        <div id="rev_slider_1059_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="concept121" data-source="gallery">
+            <!-- START REVOLUTION SLIDER 5.4.1 fullwidth mode -->
+            <div id="rev_slider_1078_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.4.1">
+                <ul>
+                    {% for slide in slides %}<!-- SLIDE  -->
+                    <li data-index="rs-{{forloop.counter0|slider_count:2972 }}" data-transition="zoomin" data-slotamount="7" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="2000" data-rotate="0" data-saveperformance="off" data-title="Love it?" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ slide.banner.url }}" alt="" data-bgposition="center center" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scalestart="100" data-scaleend="120" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 -500" data-offsetend="0 500" data-bgparallax="10" class="rev-slidebg" data-no-retina>
+                        <!-- LAYERS -->
+                        <!-- Mobile only text -->
+                        <div class="visible-xs caption-mobile">
+                            <div class="h1" style="color: #008ccb;">{{ slide.title|safe }}</div>
+                            <div class="h2" style="color: #323a45;">{{ slide.tagline }}</div>
+                        </div>
+                        <!-- LAYER NR. 1 -->
+                        <div class="tp-caption NotGeneric-Title  tp-resizeme rs-parallaxlevel-3" id="slide-3046-layer-5" data-x="left" data-hoffset="0" data-y="center" data-voffset="0" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;","ease":"Power2.easeInOut"}]' data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[60]" data-fontsize="[90,56,40,30]" data-paddingleft="[0,50,50,50]" style="z-index: 9; white-space: nowrap;text-transform:left;">
+                            <div class="h1" style="color: #008ccb;">{{ slide.title|safe }}</div>
+                        </div>
+                        <!-- LAYER NR. 2 -->
+                        <div class="tp-caption NotGeneric-SubTitle tp-resizeme rs-parallaxlevel-2" id="slide-3046-layer-2" data-x="left" data-hoffset="0" data-y="center" data-voffset="140" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;","ease":"Power2.easeInOut"}]' data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 9; white-space: nowrap;text-transform:left;">
+                            <div class="h2" style="color: #323a45;">{{ slide.tagline }}</div>
+                            <br>
+                            <a href="#" class="medium-btn btn btn-fill" data-toggle="modal" data-target="#getAQuoteModal">GET A QUOTE <span class="icon-chevron-right"></span></a> <a class="medium-btn2 btn btn-nofill page-scroll" href="#portfolio-home">our portfolio</a>
+                        </div>
+                    </li>{% endfor %}
+                </ul>
+                <div class="tp-bannertimer" style="height: 7px; background-color: rgba(255, 255, 255, 0.25);"></div>
+            </div>
+        </div>
+        <!-- END REVOLUTION SLIDER -->
+    </div>
+</div>
+<!--end carousel-->{% endif %}
+{% if services.count %}
+<!--services Section-->
+<section class="bg-white o-hidden services" id="services">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">Services We Provide</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row">
+            {% for s in services %}
+            <!-- features box -->
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-green-border"> <a href="{{ s.get_absolute_url }}"><span class="icon-{{ s.icon }}"></span>
+                        <div>{{ s.title }}</div>
+                    </a>
+                    <p>{{ s.content|safe|truncatechars:97 }}</p>
+                </div>
+            </div>
+            <!--end features box -->{% endfor %}
+        </div>
+    </div>
+</section>
+<!--end services Section-->{% endif %}
+<!--portfolio section-->
+<section class="portfolio clearfix" id="portfolio-home">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">Our Portfolio</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="button-group filter-button-group clearfix">
+            <button class="button is-checked" data-filter="*">All Work</button>
+            {% for s in services %}{% if s.project_set.all.count %}<button class="button" data-filter=".s{{ s.id }}">{{ s.common_name }}</button>{% endif %}{% endfor %}
+        </div>
+        <!-- button-group ends -->
+        <div class="grid clearfix row">
+            {% for p in projects %}{% if p.service %}<div class="s{{ p.service.id }} grid-item">
+                <div class="img_container">
+                    {% thumbnail p.thumbnail "360x260" crop="center" as im %}<img src="{{ im.url }}" alt="{% if p.thumbnail_alt_tag %}{{ p.thumbnail_alt_tag }}{% endif %}" class="img-responsive">{% endthumbnail %}
+                    <div class="overlay">
+                        <a class="btn btn-nofill proDetModal{{ forloop.counter }}">Discover</a>
+                    </div>
+                    <!-- End of .overlay -->
+                </div>
+                <!-- End of .img_container -->
+                <div class="text-content">
+                    <h3><a class="proDetModal proDetModal{{ forloop.counter }}">{{ p.title }}<span>{{ p.service.common_name }}</span></a></h3>
+                </div>
+            </div>{% endif %}{% endfor %}
+            <!-- End of .grid-item -->
+        </div>
+        <!-- End of .grid -->
+        <div class="text-center port-dms"> <a href="{% url 'project:portfolio' %}" class="btn btn-fill full-width">Discover more</a> </div>
+    </div>
+</section>
+<!--end portfolio section-->
+{% if featured_case_studies.count > 0 %}
+<!--case studies section-->
+<section class="case-studies-section" id="case_studies">
+    <div id="case-studies-carousel" class="case-studies-carousel carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for c in featured_case_studies %}{% thumbnail c.featured_background "92x92" crop="center" as im %}<li data-target="#case-studies-carousel" data-slide-to="{{ forloop.counter0 }}" class="active" style="background: url('{{ im.url  }}') center center no-repeat;background-size: 100%;"></li>{% endthumbnail %}{% endfor %}
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            {% for c in featured_case_studies %}<div class="item {% if forloop.first %} active{% endif %}" style="background: url('{{ c.featured_background.url  }}') center top no-repeat;background-size: cover;">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-xs-12 pull-left">
+                                <h2 class="b-clor">{{ c.title }}</h2>
+                                <p class="regular-text">{{ c.description|safe|truncatechars:155 }}</p>
+                                {% if c.video_link %}<a href="#" data-mfp-src="{{ c.video_link }}" class="small-text semi-bold video-popup"><span class="icon-play-circle"></span><span>watch {{ c.title }}'s journey</span></a>{% endif %}
+                            </div>
+                            <div class="col-md-5 col-xs-12 pull-right floating-img">
+                                {% thumbnail c.thumbnail "350x250" crop="center" as im %}<img src="{{ im.url }}" alt="{% if c.alt_tag_thumbnail %}{{ c.alt_tag_thumbnail }}{% endif %}" class="img-responsive pull-right">{% endthumbnail %}
+                            </div>
+                        </div>
+                        <!-- End of .row -->
+                    </div>
+                    <!-- End of .container -->
+                </div>
+            </div>
+            <!-- End of .item -->{% endfor %}
+        </div>
+        <!-- Controls -->
+    </div>
+</section>
+<!--end case studies section-->{% endif %}
+{% if current_site.whychooseussection %}<!--Choosing Us Section-->
+<section class="bg-white o-hidden why-us common-form-section" id="why-us">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">{{ current_site.whychooseussection.section_title }}</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row">
+            <!--text box-->
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                {{ current_site.whychooseussection.content|safe }}
+            </div>
+            <!--end text box-->
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"> </div>
+            <!--form for free quote-->
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                <div class="customise-form">
+                    <form class="email_form" method="post">
+                        <div class="form-element-wrapper">
+                            <h3>Get a Free Quote</h3>
+                            <div class="form-group customised-formgroup"> <span class="icon-user"></span>
+                                <input type="text" name="full_name" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group customised-formgroup"> <span class="icon-envelope"></span>
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group customised-formgroup"> <span class="icon-telephone"></span>
+                                <input type="text" name="phone" class="form-control" placeholder="Phone">
+                            </div>
+                            <div class="form-group customised-formgroup"> <span class="icon-laptop"></span>
+                                <input type="text" name="website" class="form-control" placeholder="Website">
+                            </div>
+                            <div class="form-group customised-formgroup"> <span class="icon-bubble"></span>
+                                <textarea name="message" class="form-control" placeholder="Message"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-fill full-width">GET A QUOTE<span class="icon-chevron-right"></span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--end form for free quote-->
+        </div>
+    </div>
+</section>
+<!--end Choosing Us section-->{% endif %}
+{% if current_site.numbercounter %}
+<!--counter section-->
+<div class="clearfix"></div>
+<div class="banner  o-hidden success-number">
+    <div class="clearfix"></div>
+    <div class="parallax-container">
+        <div class="clearfix"></div>
+        <section>
+            <div class="clearfix"></div>
+            <div class="stuff" data-type="content" style=" background: url('{{ current_site.numbercounter.background.url }}') center top no-repeat;background-attachment: fixed;background-size: cover;">
+                <div class="container">
+                    <!--section title -->
+                    <h2>{{ current_site.numbercounter.title }}</h2>
+                    <!--end section title -->
+                    <div class="row counter-inner">
+                        {% for c in current_site.numbercounter.counter_set.all %}
+                        <!-- features box -->
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <div class="icon-holder pull-left"><span class="icon-{{ c.icon }}"></span></div>
+                            <div class="pull-left counter-text">
+                                <div class="counter no_count b-clor">{{ c.count }}</div>
+                                <p class="semi-bold">{{ c.label }}</p>
+                            </div>
+                        </div>
+                        <!--end features box -->{% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </section>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--end counter section-->{% endif %}
+{% if latest_posts.count > 0 %}
+<!--Blog Section-->
+<section class="news">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">Latest Blogs</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row">
+            <!--blog left content-->
+            {% for post in latest_posts %}<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="blog-content{% if post.featured %} featured-blog{% endif %}"> <img src="{% static 'images/news1.jpg' %}" alt="blog" class="img-responsive blog-img" />
+                    <div class="box-green-border equalheight">
+                        <span>{{ post.created_on|date:'d F, Y' }}</span>
+                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                        {{ post.content|safe|truncatechars:100 }}
+                    </div>
+                </div>
+            </div>{% endfor %}
+            <div class="col-xs-12 text-center"> <a href="{% url 'blog:blog' %}" class="btn btn-fill full-width">READ MORE POSTS</a> </div>
+            <!--read more blog button-->
+        </div>
+    </div>
+</section>
+<!--End of blog Section-->{% endif %}
+<!--end blog Section-->{% endblock %}
+{% block modal %}
+{% for p in projects %}{% if p.service %}<!--portfolio details  modal-->
+<div class="modal fade verticl-center-modal" id="portfolioDetModal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="portfolioDetModal{{ forloop.counter }}">
+    <div class="modal-dialog getguoteModal-dialog potfolio-modal" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="icon-cross-circle"></span></button>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <!-- main slider carousel -->
+                        <div id="slider{{ forloop.counter0 }}">
+                            <div id="carousel-bounding-box">
+                                <div id="myCarousel{{ forloop.counter }}" class="carousel slide myCarousel">
+                                    <!-- main slider carousel items -->
+                                    <div class="carousel-inner">
+                                        {% for im in p.projectimage_set.all %}<div class="{% if forloop.first %}active {% endif %}item" data-slide-number="{{ forloop.counter0 }}">
+                                            <img src="{{ im.image.url }}" alt="{% if im.alt_tag %}{{ im.alt_tag }}{% endif %}" class="img-responsive">
+                                        </div>{% endfor %}
+                                        <div id="slider-thumbs">
+                                            <!-- thumb navigation carousel items -->
+                                            <ul class="list-inline  thumb-list">
+                                                {% for im in p.projectimage_set.all %}<li>
+                                                    <a id="carousel-selector-{{ forloop.counter0 }}" class="carousel-selector{% if forloop.first %} selected{% endif %}">
+                                                        {% thumbnail im.image "153x133" crop=center as img %}<img src="{{ img.url }}" class="img-responsive" alt="{% if im.alt_tag %}{{ im.alt_tag }}{% endif %} Thumbnail">{% endthumbnail %}
+                                                    </a>
+                                                </li>{% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="port-modal-content">
+                            <p class="gray-text">{% if p.featured %}Featured - {% endif %}{{ p.service.common_name }}</p>
+                            <h2 class="b-clor">{{ p.title }}</h2>
+                        </div>
+                        {{ p.description|safe }}
+                        <a href="{{ p.website_link }}" target="_blank" class="medium-btn2  btn btn-fill">Launch website</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end portfolio details modal-->{% endif %}{% endfor %}{% endblock %}

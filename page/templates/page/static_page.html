@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>{{ page.title }}</title>{% endblock %}
+{% block content %}
+<!-- ++++ banner ++++ -->
+<section class="banner  o-hidden banner-inner" style="background: url('{{ page.banner.url }}');">
+    <div class="container">
+        <!--banner text-->
+        <div class="banner-txt">
+            <h1>{{ page.title }}</h1>
+            <p class="semi-bold">{{ page.tagline }}</p>
+            {% if page.button %}<a href="#more-about" class="medium-btn2 btn btn-nofill page-scroll">{{ page.button|upper }}</a>{% endif %}
+        </div>
+        <!--end banner text-->
+    </div>
+</section>
+<!-- ++++ end banner ++++ -->
+{% for section in page.pagesection_set.all %}
+<!-- ++++ about content ++++ -->
+<section class="bg-white o-hidden common-form-section contact-form-wrapper more-about"{% if forloop.first %} id="more-about"{% endif %}>
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">{{ section.title }}</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row about-content">
+            <div class="col-sm-5 col-xs-12 pull-{% cycle 'right' 'left' %}">
+                <div class="about-img">
+                	{% thumbnail section.image "429x400" crop=center as im %}<img src="{{ im.url }}" alt="{% if section.alt_tag_image %}{{ section.alt_tag_image }}{% endif %}" class="img-responsive" />{% endthumbnail %}</div>
+            </div>
+            <div class="col-sm-7 col-xs-12 pull-{% cycle 'left' 'right' %}">
+                <div>
+                    {{ section.content|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end contact form design -->
+{% endfor %}{% endblock %}

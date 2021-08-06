@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>Case Studies | WebTechh Solutions</title>{% endblock %}
+{% block content %}
+{% if current_site.casestudysection %}<!-- ++++ banner ++++ -->
+<section class="banner  o-hidden banner-inner case-studies-banner">
+    <div class="container">
+        <!--banner text-->
+        <div class="banner-txt">
+            <h1>{{ current_site.casestudysection.title }}</h1>
+            <p class="semi-bold">{{ current_site.casestudysection.tagline }}</p>
+            <a href="#more-case-studies" class="medium-btn2 btn btn-nofill page-scroll">DISCOVER MORE</a>
+        </div>
+        <!--end banner text-->
+    </div>
+</section>{% endif %}
+<!-- ++++ case studies content ++++ -->
+<section class="o-hidden case-studies-content long-box-wrapper" id="more-case-studies">
+    <div class="container">
+        <div class="row">
+           {% for study in studies %}<!--case studies content box-->
+            <div class="col-xs-6 col-sm-6">
+                <div class="box-content-with-img">
+                    {% thumbnail study.banner "555x320" crop=center as im %}<img src="{{ im.url }}" class="img-responsive" alt="{% if study.alt_tag_banner %}{{ study.alt_tag_banner }}{% endif %}" />{% endthumbnail %}
+                    <div class="box-content-text">
+                        <h3 class="semi-bold">{{ study.title }}</h3>
+                        {{ study.description|safe }}
+                        <a href="{{ study.get_absolute_url }}" class="medium-btn2 btn btn-fill proDetModal">VIEW DETAILS</a>
+                    </div>
+                </div>
+            </div>{% endfor %}
+            <div class="col-xs-12">
+                <nav aria-label="Page navigation" class="pagination-case ">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item {% if not studies.has_previous %} disabled{% endif %}"> <a class="page-link" href="{% if studies.has_previous %}?page={{ studies.previous_page_number }}{% else %}javascript:void(){% endif %}" tabindex="-1"><span class="icon-chevron-left"></span></a> </li>
+                        {% for p in studies.paginator.page_range %}<li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>{% endfor %}
+                        <li class="page-item{% if not studies.has_next %} disabled{% endif %}"> <a class="page-link" href="{% if studies.has_next %}?page={{ studies.next_page_number }}{% else %}javascript:void(){% endif %}"><span class="icon-chevron-right"></span></a> </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ++++ end case studies content ++++ -->{% endblock %}

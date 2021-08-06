@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>{{ query }} - Search Results | Blog | WebTechh Solutions</title>
+<meta name="description" content="Blogs for WebTechh Solutions" />
+<meta name="keywords" content="Blog, SEO, Digital Marketing" />{% endblock %}
+{% block content %}
+<!-- ++++ Most Bold Title ++++ -->
+<section class="blog-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>{{ query }} - Search Results</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ++++ blog content ++++ -->
+<section class="bg-white o-hidden blog-p2 blog-content">
+    <!--blog content row one-->
+    <div class="container">
+        <!--end section title -->
+        <div class="row">
+            {% for post in posts %}
+            <!--blog content box-->
+            <div class="col-xs-12 col-sm-4">
+                <div class="box-content-with-img equalheight{% if post.featured %} is-featured{% endif %}">
+                    {% thumbnail post.banner "360x280" crop="center" as im %}<img src="{{ im.url }}" class="img-responsive" alt="" />{% endthumbnail %}
+                    <div class="box-content-text">
+                        <p class="gray-text"><span class="icon-calendar-full"></span>{{ post.created_on|date:"d F, Y" }}</p>
+                        <h3 class="semi-bold"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                        {{ post.content|safe|truncatechars:150 }}
+                    </div>
+                </div>
+            </div>
+            <!--end blog content box-->{% empty %}<h4>No Posts Found</h4>{% endfor %}
+        </div>
+    </div>
+    <!--end blog content row one-->
+</section>{% endblock %}

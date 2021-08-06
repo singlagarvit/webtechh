@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zxx">
+{% load static %}
+
+<head>
+    {% block meta %}{% endblock %}
+    <meta charset="utf-8">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
+    <!-- ++++ favicon ++++ -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'icon/favicon-96x96.png' %}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'icon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'icon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.html' %}">
+    <!-- ++++ bootstrap ++++ -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <!-- ++++ owl carousel ++++ -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+    <!-- ++++ magnific-popup  ++++ -->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+    <!-- ++++ font IcoMoon ++++ -->
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <!-- ++++ style ++++ -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    <!-- Slider Revolution CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'revolution/css/settings.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'revolution/css/layers.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'revolution/css/navigation.css' %}">
+    <!-- ++++ [if IE]>
+        <script src="{% static 'js/html5shiv.js' %}"></script>
+    <![endif] ++++ -->
+</head>
+
+<body>
+    <!-- most top information -->
+    <div class="header-wrapper">
+        <header id="top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12  hidden-xs">
+                        <div id="custom-search-input">
+                            <div class="input-group"> <span class="input-group-btn">
+                                    <button class="btn" type="button"> <span class="icon-magnifier"></span> </button>
+                                </span>
+                                <input type="text" class="search-query form-control" placeholder="Search" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-7 col-xs-12">
+                        <ul class="pull-right header-right">
+                            <li> <a href="tel:+91{{ current_site.siterequirement.helpline_number }}"><span class="icon-telephone"></span><span>{{ current_site.siterequirement.helpline_number }}</span></a></li>
+                            <li> <img src="{% static 'images/separator.png' %}" alt="separator" class="img-responsive" /> </li>
+                            <li> <a href="mailto:{{ current_site.siterequirement.helpline_email }}"><span class="icon-envelope"></span><span>{{ current_site.siterequirement.helpline_email }}</span></a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- end most top information -->
+        <!--navigation-->
+        <nav id="navbar-main" class="navbar main-menu">
+            <div class="container">
+                <!--Brand and toggle get grouped for better mobile display-->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                    <a class="navbar-brand" href="{% url 'core:index' %}"><img src="{{ current_site.siterequirement.logo.url }}" alt="{{ current_site.siterequirement.title }}" class="img-responsive" /></a>
+                </div>
+                <!--Collect the nav links, and other content for toggling-->
+                <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown"> <a href="#" data-toggle="dropdown" class="dropdown-toggle">Services</a>
+                            <ul class="dropdown-menu">
+                                {% for service in services %}<li><a href="{{ service.get_absolute_url }}"><span class="icon-{{ service.icon }}"></span>{{ service.title }}</a></li>{% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'project:portfolio' %}">Portfolio</a></li>
+                        <li><a href="{% url 'project:studies' %}">Case Studies</a></li>
+                        <li><a href="{% url 'blog:blog' %}">Blog</a></li>
+                        <li class="btn btn-fill" data-toggle="modal" data-target="#getAQuoteModal"><a href="#">GET A QUOTE<span class="icon-chevron-right"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!--end navigation-->
+    {% block content %}{% endblock %}
+    <!-- ++++ footer ++++ -->
+    <footer id="footer">
+        <!--scroll to top-->
+        <a class="top-btn page-scroll" href="#top"><span class="icon-chevron-up b-clor regular-text text-center"></span></a>
+        <!--end scroll to top-->
+        <!--newsletter section-->
+        <div class="grey-dark-bg text-center">
+            <div class="container">
+                <h2>Sign up for our newsletter to stay up to date with tech news!</h2>
+                <div class="customise-form">
+                    <form method="post" action="{% url 'core:subscribe' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <!--box one-->
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group customised-formgroup"> <span class="icon-user"></span>
+                                    {{ subscription_form.name }}
+                                </div>
+                            </div>
+                            <!--end box one-->
+                            <!--box two-->
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="form-group customised-formgroup"> <span class="icon-envelope"></span>
+                                   {{ subscription_form.email }}
+                                </div>
+                            </div>
+                            <!--end box two-->
+                            <!--box three-->
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div>
+                                    <input class="btn btn-fill full-width" type="submit" value="SIGN UP FOR FREE!" />
+                                </div>
+                            </div>
+                            <!--end box three-->
+                        </div>
+                    </form>
+                    <p class="light-gray-font-color">Lorem ipsum dolor sit amet, consectetuer adipi scing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+                </div>
+            </div>
+        </div>
+        <!--end newsletter section-->
+        <!--footer content-->
+        <div class="light-ash-bg">
+            <div class="container">
+                <ul>
+                    <li>
+                        <!-- footer left content-->
+                        <ul>
+                            <li>
+                                <a href="{% url 'core:index' %}"><img src="{{ current_site.siterequirement.logo.url }}" alt="{{ current_site.siterequirement.title }}" class="img-responsive logo"></a>
+                            </li>
+                            <li>
+                                <p class="extra-small-text">&copy; 2017</p>
+                            </li>
+                            <li>
+                                <p class="extra-small-text">Your Company LLC.</p>
+                            </li>
+                        </ul>
+                        <!--end footer left content-->
+                    </li>
+                    <li>
+                        <!--footer service list-->
+                        <ul>
+                            <li><a class="regular-text text-color-light">Services</a></li>
+                            {% for service in services %}<li><a href="{{ service.get_absolute_url }}" class="extra-small-text">{{ service.title }}</a></li>{% endfor %}
+                        </ul>
+                        <!--end footer service list-->
+                    </li>
+                    <li>
+                        <!--footer Resources list-->
+                        <ul>
+                            <li><a class="regular-text text-color-light">Resources</a></li>
+                            <li><a href="{% url 'project:portfolio' %}" class="extra-small-text">Portfolio</a></li>
+                            <li><a href="{% url 'project:studies' %}" class="extra-small-text">Case Studies</a></li>
+                            <li><a href="{% url 'blog:blog' %}" class="extra-small-text">Blog</a></li>
+                        </ul>
+                        <!--end footer Resources list-->
+                    </li>
+                    <li>
+                        <!--footer Support list-->
+                        <ul>
+                            <li><a class="regular-text text-color-light">Support</a></li>
+                            {% for p in static_pages %}<li><a href="{{ p.get_absolute_url }}" class="extra-small-text">{{ p.title }}</a></li>{% endfor %}
+                            {% for p in footer_pages %}<li><a href="{{ p.get_absolute_url }}" class="extra-small-text">{{ p.title }}</a></li>{% endfor %}
+                        </ul>
+                        <!--end footer Support list-->
+                    </li>
+                    <li class="big-width">
+                        <!--footer social media list-->
+                        <ul class="list-inline">
+                            <li>
+                                <p class="regular-text text-color-light">Get in Touch</p>
+                                <ul class="social-links">
+                                    {% if current_site.siterequirement.facebook and current_site.siterequirement.facebook.strip %}<li><a href="{{ current_site.siterequirement.facebook }}" target="_blank"><span class="icon-facebook"></span></a></li>{% endif %}
+                                    {% if current_site.siterequirement.twitter and current_site.siterequirement.twitter.strip %}<li><a href="{{ current_site.siterequirement.twitter }}" target="_blank"><span class="icon-twitter"></span></a></li>{% endif %}
+                                    {% if current_site.siterequirement.google_plus and current_site.siterequirement.google_plus.strip %}<li><a href="{{ current_site.siterequirement.google_plus }}" target="_blank"><span class="icon-google-plus"></span></a></li>{% endif %}
+                                    {% if current_site.siterequirement.instagram and current_site.siterequirement.instagram.strip %}<li><a href="{{ current_site.siterequirement.instagram }}" target="_blank"><span class="icon-instagram"></span></a></li>{% endif %}
+                                    {% if current_site.siterequirement.pinterest and current_site.siterequirement.pinterest.strip %}<li><a href="{{ current_site.siterequirement.pinterest }}" target="_blank"><span class="icon-pinterest"></span></a></li>{% endif %}
+                                    {% if current_site.siterequirement.linkedin and current_site.siterequirement.linkedin.strip %}<li><a href="{{ current_site.siterequirement.linkedin }}" target="_blank"><span class="icon-linkedin"></span></a></li>{% endif %}
+                                </ul>
+                            </li>
+                        </ul>
+                        <!--end footer social media list-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--end footer content-->
+    </footer>
+    <!--end footer-->
+    <!--get a quote modal-->
+    <div class="modal fade verticl-center-modal" id="getAQuoteModal" tabindex="-1" role="dialog" aria-labelledby="getAQuoteModal">
+        <div class="modal-dialog getguoteModal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="icon-cross-circle"></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="customise-form">
+                                <form method="post" action="{% url 'core:queries' %}">
+                                    <h3>Get a Free Quote</h3>
+                                    {% csrf_token %}
+                                    <div class="form-group customised-formgroup"> <span class="icon-user"></span>
+                                        {{ query_form.name }}
+                                    </div>
+                                    <div class="form-group customised-formgroup"> <span class="icon-envelope"></span>
+                                        {{ query_form.email }}
+                                    </div>
+                                    <div class="form-group customised-formgroup"> <span class="icon-telephone"></span>
+                                        {{ query_form.phone }}
+                                    </div>
+                                    <div class="form-group customised-formgroup"> <span class="icon-laptop"></span>
+                                        {{ query_form.website }}
+                                    </div>
+                                    <div class="form-group customised-formgroup"> <span class="icon-bubble"></span>
+                                        {{ query_form.message }}
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-fill full-width">GET A QUOTE<span class="icon-chevron-right"></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>What’s Next?</h3>
+                            <ul class="list-with-arrow">
+                                <li>An email and phone call from one of our representatives.</li>
+                                <li>A time &amp; cost estimation.</li>
+                                <li>An in-person meeting.</li>
+                            </ul>
+                            <div class="contact-info-box-wrapper">
+                                <div class="contact-info-box"> <span class="icon-telephone"></span>
+                                    <div>
+                                        <h6>Give us a call</h6>
+                                        <p>(123) 456 7890</p>
+                                    </div>
+                                </div>
+                                <div class="contact-info-box"> <span class="icon-envelope"></span>
+                                    <div>
+                                        <h6>Send an email</h6>
+                                        <p>yourcompany@sample.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end get a quote modal-->
+    {% block modal %}{% endblock %}
+    <!-- ++++ Javascript libraries ++++ -->
+    <!--js library of jQuery-->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <!--custom js-->
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <!--js library of bootstrap-->
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!--js library for number counter-->
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <!--js library for video popup-->
+    <script type="text/javascript" src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- js library for owl carousel -->
+    <script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!--modernizer library-->
+    <script type="text/javascript" src="{% static 'js/modernizr.js' %}"></script>
+    <!--js library for category filter -->
+    <script type="text/javascript" src="{% static 'js/isotope.min.js' %}"></script>
+    <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+    <script type="text/javascript" src="{% static 'revolution/js/jquery.themepunch.tools.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'revolution/js/jquery.themepunch.revolution.min.js' %}"></script>
+    <!-- Slider revolution extensions -->
+    <script type="text/javascript" src="{% static 'revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'revolution/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'revolution/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'revolution/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'revolution/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+</body>
+
+</html>

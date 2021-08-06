@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>{{ service.title }} | WebTechh Solutions</title>{% endblock %}
+{% block content %}
+<!-- ++++ banner ++++ -->
+<section class="banner o-hidden banner-inner" style="background-image: url('{{ service.banner.url }}');">
+    <div class="container">
+        <!--banner text-->
+        <div class="banner-txt">
+            <h1>{{ service.lead_h1 }}</h1>
+            <p class="semi-bold">{{ service.service_tagline }}</p>
+            <a href="#process-tab" class="medium-btn2 btn btn-nofill page-scroll">OUR Process</a>
+        </div>
+        <!--end banner text-->
+    </div>
+</section>
+<!-- ++++ end banner ++++ -->
+<!-- ++++ actual advertisement ++++ -->
+<section class="bg-white o-hidden common-form-section  service-description-section">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">{{ service.title }}</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                {{ service.content|safe }}
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"> </div>
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                <div class="customise-form">
+                    <form class="email_form" method="post">
+                        <div class="form-element-wrapper">
+                            <h3>Get a Free Quote</h3>
+                            <div class="form-group customised-formgroup">
+                                <span class="icon-user"></span>
+                                <input type="text" name="full_name" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="form-group customised-formgroup">
+                                <span class="icon-envelope"></span>
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group customised-formgroup">
+                                <span class="icon-telephone"></span>
+                                <input type="text" name="phone" class="form-control" placeholder="Phone">
+                            </div>
+                            <div class="form-group customised-formgroup">
+                                <span class="icon-laptop"></span>
+                                <input type="text" name="website" class="form-control" placeholder="Website">
+                            </div>
+                            <div class="form-group customised-formgroup">
+                                <span class="icon-bubble"></span>
+                                <textarea name="message" class="form-control" placeholder="Message"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-fill full-width">GET A QUOTE<span class="icon-chevron-right"></span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ++++ end actual advertisement ++++ -->
+<!-- ++++ process section start ++++ -->
+<section class="bg-white design-process-section" id="process-tab">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor text-align-center">Our {{ service.common_name }} Process</h2>
+        <!--end section title -->
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- design process steps-->
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs process-model more-icon-preocess" role="tablist">
+                    {% for process in service.serviceprocess_set.all %}<li role="presentation"{% if forloop.first %} class="active"{% endif %}><a href="#service{{ forloop.counter }}" aria-controls="service{{ forloop.counter }}" role="tab" data-toggle="tab"><span class="icon-{{ process.icon }}"></span>
+                            <p>{{ process.title }}</p>
+                        </a>
+                    </li>{% endfor %}
+                </ul>
+                <!-- end design process steps-->
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    {% for process in service.serviceprocess_set.all %}<div role="tabpanel" class="tab-pane{% if forloop.first %} active{% endif %}" id="service{{ forloop.counter }}">
+                        <div class="design-process-content">
+                            <h3 class="semi-bold">{{ process.title }}</h3>
+                            {{ process.content|safe }}
+                            {% thumbnail process.image "361x293" crop=center as im %}<img src="{{ im.url }}" alt="{% if process.alt_tag_image %}{{ process.alt_tag_image }}{% endif %}" class="img-responsive" />{% endthumbnail %}
+                        </div>
+                    </div>{% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--end process section-->
+{% if featured_projects.count %}<!-- ++++ featured design ++++ -->
+<section class="o-hidden bg-white featured-design-section mobile-app-featured">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">Featured Designs</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row margin-top-40 logo-b portfolio">
+            {% for project in featured_projects %}<div class="col-xs-6 col-sm-4">
+                <div class="grid-item">
+                    <div class="img_container">
+                        {% thumbnail project.thumbnail "360x260" crop=center as im %}<img src="{{ im.url }}" alt="{% if project.thumbnail_alt_tag %}{{ project.thumbnail_alt_tag }}{% endif %}" class="img-responsive">{% endthumbnail %}
+                        <div class="overlay">
+                            <a class="btn btn-nofill proDetModal{{ forloop.counter }}">Discover</a>
+                        </div>
+                        <!-- End of .overlay -->
+                    </div>
+                    <!-- End of .img_container -->
+                    <div class="text-content">
+                        <h3><a class="proDetModal proDetModal1">{{ project.title }}<span>{{ project.service.common_name }}</span></a></h3>
+                    </div>
+                </div>
+            </div>{% endfor %}
+            <div class="col-xs-12"> <a href="{% url 'project:portfolio' %}" class="btn btn-fill full-width">Discover more</a> </div>
+        </div>
+    </div>
+</section>
+<!-- ++++ end featured design ++++ -->{% endif %}{% endblock %}
+{% block modal %}{% for project in featured_projects %}<!--portfolio details  modal-->
+<div class="modal fade verticl-center-modal" id="portfolioDetModal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="portfolioDetModal{{ forloop.counter }}">
+    <div class="modal-dialog getguoteModal-dialog potfolio-modal" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="icon-cross-circle"></span></button>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <!-- main slider carousel -->
+                        <div id="slider{{ forloop.counter0 }}">
+                            <div id="carousel-bounding-box">
+                                <div id="myCarousel{{ forloop.counter }}" class="carousel slide myCarousel">
+                                    <!-- main slider carousel items -->
+                                    <div class="carousel-inner">
+                                        {% for im in project.projectimage_set.all %}<div class="{% if forloop.first %}active {% endif %}item" data-slide-number="{{ forloop.counter0 }}">
+                                            <img src="{{ im.image.url }}" alt="{% if im.alt_tag %}{{ im.alt_tag }}{% endif %}" class="img-responsive">
+                                        </div>{% endfor %}
+                                        <div id="slider-thumbs">
+                                            <!-- thumb navigation carousel items -->
+                                            <ul class="list-inline  thumb-list">
+                                                {% for im in project.projectimage_set.all %}<li>
+                                                    <a id="carousel-selector-{{ forloop.counter0 }}" class="carousel-selector{% if forloop.first %} selected{% endif %}">
+                                                        {% thumbnail im.image "153x133" crop=center as img %}<img src="{{ img.url }}" class="img-responsive" alt="{% if im.alt_tag %}{{ im.alt_tag }}{% endif %} Thumbnail">{% endthumbnail %}
+                                                    </a>
+                                                </li>{% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="port-modal-content">
+                            <p class="gray-text">{% if project.featured %}Featured - {% endif %}{{ project.service.common_name }}</p>
+                            <h2 class="b-clor">{{ project.title }}</h2>
+                        </div>
+                        {{ project.description|safe }}
+                        <a href="{{ project.website_link }}" target="_blank" class="medium-btn2  btn btn-fill">Launch website</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end portfolio details modal-->{% endfor %}{% endblock %}

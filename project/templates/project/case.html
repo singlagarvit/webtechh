@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>{{ case.title }} | Case Studies | WebTechh Solutions</title>{% endblock %}
+{% block content %}
+<!-- ++++ banner ++++ -->
+<section class="banner o-hidden banner-inner" style="background: url('{{ case.banner.url }}');">
+    <div class="container">
+        <!--banner text-->
+        <div class="banner-txt">
+            <h1>{{ case.title }}</h1>
+            <p class="semi-bold">{{ case.tagline }}</p>
+            <a href="{{ case.project.website_link }}" target="_blank" class="medium-btn2 btn btn-nofill margin-top-15">VISIT WEBSITE</a>
+        </div>
+        <!--end banner text-->
+    </div>
+</section>
+<!-- ++++ end banner ++++ -->
+{% for section in case.casestudysection_set.all %}<!-- ++++ case studies description ++++ -->
+<section class="bg-white o-hidden common-form-section case-study-details">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">{{ section.title }}</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="dis-table">
+                    <div>
+                    	{% thumbnail section.image "569" crop=center as im %}<img src="{{ im.url }}" alt="{% if section.alt_tag %}{{ section.alt_tag }}{% endif %}" class="img-responsive" />{% endthumbnail %}
+                    </div>
+                    <div class="text-box">
+                        {{ section.content|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ++++ end case studies description ++++ -->{% endfor %}
+{% if case.casestudyscoreboard_set.all.count %}<!-- ++++ Scoreboard section ++++ -->
+<section class="bg-white o-hidden">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor text-align-center">Scoreboard</h2>
+        <!--end section title -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="score-table">
+                    <ul>
+                        {% for pointer in case.casestudyscoreboard_set.all %}<li>{{ pointer.pointer }}</li>{% endfor %}
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ++++ end Scoreboard section ++++ -->{% endif %}
+{% for service in services %}{% if service.casestudy_set.all.count %}<!-- ++++ case studies client feedback ++++ -->
+<section class="bg-white o-hidden long-box-wrapper">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">{{ service.common_name }} Case Studies</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row">
+            {% for study in service.casestudy_set.all %}<div class="col-xs-6 col-sm-6">
+                <div class="box-content-with-img">
+                	{% thumbnail study.banner "555x320" crop=center as im %}<img src="{{ im.url }}" class="img-responsive" alt="{% if study.alt_tag_banner %}{{ study.alt_tag_banner }}{% endif %}" />{% endthumbnail %}
+                    <div class="box-content-text">
+                        <h3 class="semi-bold">{{ study.title }}</h3>
+                        {{ study.description|safe }}
+                        <a href="{{ study.get_absolute_url }}" class="medium-btn2 btn btn-fill">VIEW DETAILS</a>
+                    </div>
+                </div>
+            </div>{% endfor %}
+            <div class="col-xs-12"> <a href="{% url 'project:studies' %}" class="btn btn-fill full-width">Discover more</a> </div>
+        </div>
+    </div>
+</section>
+<!-- ++++ end case studies client feedback ++++ -->{% endif %}{% endfor %}{% endblock %}

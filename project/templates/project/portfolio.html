@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>Portfolio | WebTechh Solutions</title>{% endblock %}
+{% block content %}
+{% if current_site.portfolio %}<!-- ++++ banner ++++ -->
+<section class="banner  o-hidden banner-inner" style="background: url('{{ current_site.portfolio.background.url }}');">
+    <div class="container">
+        <!--banner text-->
+        <div class="banner-txt">
+            <h1>{{ current_site.portfolio.title }}</h1>
+            <p class="semi-bold">{{ current_site.portfolio.tagline }}</p>
+            <a href="#more-portfolio" class="medium-btn2 btn btn-nofill page-scroll">DISCOVER MORE</a>
+        </div>
+        <!--end banner text-->
+    </div>
+</section>
+<!-- ++++ end banner ++++ -->{% endif %}
+<!-- ++++ Featured Project content ++++ -->
+<section class="o-hidden bg-white featured-design-section mobile-app-featured">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">Featured Projects</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="row margin-top-40 portfolio-p l-margin portfolio">
+            {% for project in featured_projects %}<div class="col-xs-6 col-sm-4">
+                <div class="grid-item">
+                    <div class="img_container">
+                        {% thumbnail project.thumbnail "360x260" crop=center as im %}<img src="{{ im.url }}" alt="{% if project.thumbnail_alt_tag %}{{ project.thumbnail_alt_tag }}{% endif %}" class="img-responsive">{% endthumbnail %}
+                        <div class="overlay">
+                            <a class="btn btn-nofill proDetModal{{ forloop.counter }}">Discover</a>
+                        </div>
+                        <!-- End of .overlay -->
+                    </div>
+                    <!-- End of .img_container -->
+                    <div class="text-content">
+                        <h3><a class="proDetModal proDetModal1">{{ project.title }}<span>{{ project.service.common_name }}</span></a></h3>
+                    </div>
+                </div>
+            </div>{% endfor %}
+        </div>
+    </div>
+</section>
+<!-- ++++ end Featured Project content ++++ -->
+<!-- ++++ full portfolio section ++++ -->
+<section id="more-portfolio" class="portfolio-full portfolio clearfix">
+    <div class="container">
+        <!--section title -->
+        <h2 class="b-clor">Full Portfolio</h2>
+        <hr class="dark-line" />
+        <!--end section title -->
+        <div class="button-group filter-button-group clearfix">
+            <button class="button is-checked" data-filter="*">All Work</button>
+            {% for s in services %}{% if s.project_set.all.count %}<button class="button" data-filter=".s{{ s.id }}">{{ s.common_name }}</button>{% endif %}{% endfor %}
+        </div>
+        <!-- button-group ends -->
+        <div class="grid clearfix row">
+            {% for p in projects %}<div class="s{% if p.service %}{{ p.service.id }}{% endif %} grid-item">
+                <div class="img_container">
+                    {% thumbnail p.thumbnail "360x260" crop="center" as im %}<img src="{{ im.url }}" alt="{% if p.thumbnail_alt_tag %}{{ p.thumbnail_alt_tag }}{% endif %}" class="img-responsive">{% endthumbnail %}
+                    <div class="overlay">
+                        <a class="btn btn-nofill proDetModal{{ forloop.counter }}">Discover</a>
+                    </div>
+                    <!-- End of .overlay -->
+                </div>
+                <!-- End of .img_container -->
+                <div class="text-content">
+                    <h3><a class="proDetModal proDetModal{{ forloop.counter }}">{{ p.title }}{% if p.service %}<span>{{ p.service.common_name }}</span>{% endif %}</a></h3>
+                </div>
+            </div>{% endfor %}
+            <!-- End of .grid-item -->
+        </div>
+        <!-- End of .grid -->
+    </div>
+</section>
+<!--  ++++ end full portfolio section ++++ -->{% endblock %}
+{% block modal %}{% for project in featured_projects %}<!--portfolio details  modal-->
+<div class="modal fade verticl-center-modal" id="portfolioDetModal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="portfolioDetModal{{ forloop.counter }}">
+    <div class="modal-dialog getguoteModal-dialog potfolio-modal" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="icon-cross-circle"></span></button>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <!-- main slider carousel -->
+                        <div id="slider{{ forloop.counter0 }}">
+                            <div id="carousel-bounding-box">
+                                <div id="myCarousel{{ forloop.counter }}" class="carousel slide myCarousel">
+                                    <!-- main slider carousel items -->
+                                    <div class="carousel-inner">
+                                        {% for im in project.projectimage_set.all %}<div class="{% if forloop.first %}active {% endif %}item" data-slide-number="{{ forloop.counter0 }}">
+                                            <img src="{{ im.image.url }}" alt="{% if im.alt_tag %}{{ im.alt_tag }}{% endif %}" class="img-responsive">
+                                        </div>{% endfor %}
+                                        <div id="slider-thumbs">
+                                            <!-- thumb navigation carousel items -->
+                                            <ul class="list-inline  thumb-list">
+                                                {% for im in project.projectimage_set.all %}<li>
+                                                    <a id="carousel-selector-{{ forloop.counter0 }}" class="carousel-selector{% if forloop.first %} selected{% endif %}">
+                                                        {% thumbnail im.image "153x133" crop=center as img %}<img src="{{ img.url }}" class="img-responsive" alt="{% if im.alt_tag %}{{ im.alt_tag }}{% endif %} Thumbnail">{% endthumbnail %}
+                                                    </a>
+                                                </li>{% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="port-modal-content">
+                            <p class="gray-text">{% if project.featured %}Featured - {% endif %}{{ project.service.common_name }}</p>
+                            <h2 class="b-clor">{{ project.title }}</h2>
+                        </div>
+                        {{ project.description|safe }}
+                        <a href="{{ project.website_link }}" target="_blank" class="medium-btn2  btn btn-fill">Launch website</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end portfolio details modal-->{% endfor %}{% endblock %}
