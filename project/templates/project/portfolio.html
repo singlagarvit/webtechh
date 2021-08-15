@@ -16,7 +16,7 @@
     </div>
 </section>
 <!-- ++++ end banner ++++ -->{% endif %}
-<!-- ++++ Featured Project content ++++ -->
+{% if featured_projects.count %}<!-- ++++ Featured Project content ++++ -->
 <section class="o-hidden bg-white featured-design-section mobile-app-featured">
     <div class="container">
         <!--section title -->
@@ -42,7 +42,7 @@
         </div>
     </div>
 </section>
-<!-- ++++ end Featured Project content ++++ -->
+<!-- ++++ end Featured Project content ++++ -->{% endif %}
 <!-- ++++ full portfolio section ++++ -->
 <section id="more-portfolio" class="portfolio-full portfolio clearfix">
     <div class="container">
@@ -68,7 +68,7 @@
                 <div class="text-content">
                     <h3><a class="proDetModal proDetModal{{ forloop.counter }}">{{ p.title }}{% if p.service %}<span>{{ p.service.common_name }}</span>{% endif %}</a></h3>
                 </div>
-            </div>{% endfor %}
+            </div>{% empty %}<h4>No Projects Found</h4>{% endfor %}
             <!-- End of .grid-item -->
         </div>
         <!-- End of .grid -->
