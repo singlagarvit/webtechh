@@ -81,7 +81,7 @@
                     </li>{% endfor %}
                 </ul>
                 <!-- end design process steps-->
-                <!-- Tab panes -->
+                {% if service.serviceprocess_set.all.count %}<!-- Tab panes -->
                 <div class="tab-content">
                     {% for process in service.serviceprocess_set.all %}<div role="tabpanel" class="tab-pane{% if forloop.first %} active{% endif %}" id="service{{ forloop.counter }}">
                         <div class="design-process-content">
@@ -90,7 +90,7 @@
                             {% thumbnail process.image "361x293" crop=center as im %}<img src="{{ im.url }}" alt="{% if process.alt_tag_image %}{{ process.alt_tag_image }}{% endif %}" class="img-responsive" />{% endthumbnail %}
                         </div>
                     </div>{% endfor %}
-                </div>
+                </div>{% endif %}
             </div>
         </div>
     </div>
