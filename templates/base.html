@@ -169,6 +169,7 @@
                         <!--footer Support list-->
                         <ul>
                             <li><a class="regular-text text-color-light">Support</a></li>
+                            <li><a href="{% url 'core:contact' %}" class="extra-small-text">Contact</a></li>
                             {% for p in static_pages %}<li><a href="{{ p.get_absolute_url }}" class="extra-small-text">{{ p.title }}</a></li>{% endfor %}
                             {% for p in footer_pages %}<li><a href="{{ p.get_absolute_url }}" class="extra-small-text">{{ p.title }}</a></li>{% endfor %}
                         </ul>
