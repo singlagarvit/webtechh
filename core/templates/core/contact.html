@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}<title>Contact Us</title>{% endblock %}
+{% block content %}
+{% if current_site.contact %}<!-- ++++ banner ++++ -->
+<section class="banner  o-hidden banner-inner" style="background: url('{{  current_site.contact.background.url }}');">
+    <div class="container">
+        <!--banner text-->
+        <div class="banner-txt">
+            <h1>{{  current_site.contact.title }}</h1>
+            <p class="semi-bold">{{  current_site.contact.tagline }}</p>
+        </div>
+        <!--end banner text-->
+    </div>
+</section>
+<!-- ++++ end banner ++++ -->{% endif %}
+<!-- ++++ contact form design ++++ -->
+    <section class="bg-white o-hidden common-form-section contact-form-wrapper">
+        <div class="container">
+            <!--section title -->
+            <h2 class="b-clor">Send Us a Message</h2>
+            <hr class="dark-line" />
+            <!--end section title -->
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                    <div class="customise-form contact-form">
+                        <form method="post" action="{% url 'core:queries' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group customised-formgroup"> <span class="icon-user"></span>
+                                        {{ query_form.name }}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group customised-formgroup"> <span class="icon-envelope"></span>
+                                        {{ query_form.email }}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group customised-formgroup"> <span class="icon-telephone"></span>
+                                        {{ query_form.phone }}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group customised-formgroup"> <span class="icon-laptop"></span>
+                                        {{ query_form.website }}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group customised-formgroup"> <span class="icon-bubble"></span>
+                                        {{ query_form.message }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-wrapper">
+                                <button type="submit" class="btn btn-fill">Contact us now!</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="contact-info-box-wrapper">
+                        <div class="contact-info-box"> <span class="icon-telephone"></span>
+                            <div>
+                                <h6>Give us a call</h6>
+                                <p>{{ current_site.siterequirement.helpline_number }}</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-box"> <span class="icon-envelope"></span>
+                            <div>
+                                <h6>Send an email</h6>
+                                <p>{{ current_site.siterequirement.helpline_email }}</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-box">
+                            <ul class="social-links">
+                                {% if current_site.siterequirement.facebook and current_site.siterequirement.facebook.strip %}<li><a href="{{ current_site.siterequirement.facebook }}" target="_blank"><span class="icon-facebook"></span></a></li>{% endif %}
+                                {% if current_site.siterequirement.twitter and current_site.siterequirement.twitter.strip %}<li><a href="{{ current_site.siterequirement.twitter }}" target="_blank"><span class="icon-twitter"></span></a></li>{% endif %}
+                                {% if current_site.siterequirement.google_plus and current_site.siterequirement.google_plus.strip %}<li><a href="{{ current_site.siterequirement.google_plus }}" target="_blank"><span class="icon-google-plus"></span></a></li>{% endif %}
+                                {% if current_site.siterequirement.instagram and current_site.siterequirement.instagram.strip %}<li><a href="{{ current_site.siterequirement.instagram }}" target="_blank"><span class="icon-instagram"></span></a></li>{% endif %}
+                                {% if current_site.siterequirement.pinterest and current_site.siterequirement.pinterest.strip %}<li><a href="{{ current_site.siterequirement.pinterest }}" target="_blank"><span class="icon-pinterest"></span></a></li>{% endif %}
+                                {% if current_site.siterequirement.linkedin and current_site.siterequirement.linkedin.strip %}<li><a href="{{ current_site.siterequirement.linkedin }}" target="_blank"><span class="icon-linkedin"></span></a></li>{% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end contact form design -->
+    <!-- google map location section start-->
+    <section class="bg-white google-map-location">
+        <div class="container">
+            <!--section title -->
+            <h2 class="b-clor text-align-center">Visit Our Work Places</h2>
+            <!--end section title -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- design process steps-->
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs process-model contact-us-tab text-center" role="tablist">
+                        <li role="presentation">
+                            <a href="#{{ current_site.siterequirement.location|lower }}" aria-controls="{{ current_site.siterequirement.location|lower }}" role="tab" data-toggle="tab">
+                                <span class="icon-Asset-3"></span>
+                                <p>{{ current_site.siterequirement.location }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- end design process steps-->
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="{{ current_site.siterequirement.location|lower }}">
+                            <p class="regular-text">Theodore Lowe, Ap #867-859 Sit Rd, Azusa delhi 39531</p>
+                            <iframe src="{{ current_site.siterequirement.location_iframe }}" height="500" style="border:0; width:100%" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end google map location section-->
+{% endblock %}

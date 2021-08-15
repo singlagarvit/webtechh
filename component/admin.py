@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HeroSlide, NumberCounter, Counter, Newsletter, SiteRequirement, Portfolio, WhyChooseUsSection, CaseStudySection
+from .models import HeroSlide, NumberCounter, Counter, Newsletter, SiteRequirement, Portfolio, WhyChooseUsSection, CaseStudySection, Contact
 
 class CounterInline(admin.StackedInline):
 	model = Counter
@@ -30,6 +30,9 @@ class CaseStudySectionAdmin(admin.ModelAdmin):
 class WhyChooseUsSectionAdmin(admin.ModelAdmin):
 	list_display = ['section_title', 'site']
 
+class ContactAdmin(admin.ModelAdmin):
+	list_display = ['title', 'tagline', 'site']
+
 admin.site.register(HeroSlide, HeroSlideAdmin)
 admin.site.register(NumberCounter, NumberCounterAdmin)
 admin.site.register(Counter, CounterAdmin)
@@ -38,3 +41,4 @@ admin.site.register(SiteRequirement, SiteRequirementAdmin)
 admin.site.register(Portfolio, PortfolioAdmin)
 admin.site.register(CaseStudySection, CaseStudySectionAdmin)
 admin.site.register(WhyChooseUsSection, WhyChooseUsSectionAdmin)
+admin.site.register(Contact, ContactAdmin)

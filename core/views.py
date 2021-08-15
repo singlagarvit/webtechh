@@ -49,3 +49,6 @@ def subscribe(request):
 			subscription = form.save()
 			messages.success(request, f"Dear {name}, you have successfully subscribed to the newsletter.")
 		return redirect('core:index')
+
+def contact(request):
+	return render(request, 'core/contact.html')

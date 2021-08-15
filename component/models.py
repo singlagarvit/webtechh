@@ -42,7 +42,7 @@ class SiteRequirement(models.Model):
 	title = models.CharField(max_length=50)
 	logo = models.ImageField(upload_to='logo/')
 	location = models.CharField(max_length=100)
-	location_iframe = models.URLField()
+	location_iframe = models.URLField(max_length=350)
 	description = models.CharField(max_length=120)
 	facebook = models.URLField(null=True,blank=True)
 	twitter = models.URLField(null=True,blank=True)
@@ -86,3 +86,13 @@ class CaseStudySection(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'Case studies'
+
+class Contact(models.Model):
+	site = models.OneToOneField(Site, on_delete=models.SET_NULL, null=True)
+	title = models.CharField(max_length=50)
+	tagline = models.CharField(max_length=120, null=True, blank=True)
+	background = models.ImageField(upload_to='component/contact/background/')
+	seo_tag = models.OneToOneField(SEOTag, on_delete=models.SET_NULL, null=True)
+
+	def __str__(self):
+		return self.title
