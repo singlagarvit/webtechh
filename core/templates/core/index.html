@@ -66,7 +66,7 @@
     </div>
 </section>
 <!--end services Section-->{% endif %}
-<!--portfolio section-->
+{% if projects.count %}<!--portfolio section-->
 <section class="portfolio clearfix" id="portfolio-home">
     <div class="container">
         <!--section title -->
@@ -98,7 +98,7 @@
         <div class="text-center port-dms"> <a href="{% url 'project:portfolio' %}" class="btn btn-fill full-width">Discover more</a> </div>
     </div>
 </section>
-<!--end portfolio section-->
+<!--end portfolio section-->{% endif %}
 {% if featured_case_studies.count > 0 %}
 <!--case studies section-->
 <section class="case-studies-section" id="case_studies">
