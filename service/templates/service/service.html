@@ -64,7 +64,7 @@
     </div>
 </section>
 <!-- ++++ end actual advertisement ++++ -->
-<!-- ++++ process section start ++++ -->
+{% if service.serviceprocess_set.all.count %}<!-- ++++ process section start ++++ -->
 <section class="bg-white design-process-section" id="process-tab">
     <div class="container">
         <!--section title -->
@@ -81,7 +81,7 @@
                     </li>{% endfor %}
                 </ul>
                 <!-- end design process steps-->
-                {% if service.serviceprocess_set.all.count %}<!-- Tab panes -->
+                <!-- Tab panes -->
                 <div class="tab-content">
                     {% for process in service.serviceprocess_set.all %}<div role="tabpanel" class="tab-pane{% if forloop.first %} active{% endif %}" id="service{{ forloop.counter }}">
                         <div class="design-process-content">
@@ -90,12 +90,12 @@
                             {% thumbnail process.image "361x293" crop=center as im %}<img src="{{ im.url }}" alt="{% if process.alt_tag_image %}{{ process.alt_tag_image }}{% endif %}" class="img-responsive" />{% endthumbnail %}
                         </div>
                     </div>{% endfor %}
-                </div>{% endif %}
+                </div>
             </div>
         </div>
     </div>
 </section>
-<!--end process section-->
+<!--end process section-->{% endif %}
 {% if featured_projects.count %}<!-- ++++ featured design ++++ -->
 <section class="o-hidden bg-white featured-design-section mobile-app-featured">
     <div class="container">
