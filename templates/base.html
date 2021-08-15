@@ -92,10 +92,10 @@
         <!--scroll to top-->
         <a class="top-btn page-scroll" href="#top"><span class="icon-chevron-up b-clor regular-text text-center"></span></a>
         <!--end scroll to top-->
-        <!--newsletter section-->
+        {% if current_site.newsletter %}<!--newsletter section-->
         <div class="grey-dark-bg text-center">
             <div class="container">
-                <h2>Sign up for our newsletter to stay up to date with tech news!</h2>
+                <h2>{{ current_site.newsletter.heading }}</h2>
                 <div class="customise-form">
                     <form method="post" action="{% url 'core:subscribe' %}">
                         {% csrf_token %}
@@ -123,11 +123,11 @@
                             <!--end box three-->
                         </div>
                     </form>
-                    <p class="light-gray-font-color">Lorem ipsum dolor sit amet, consectetuer adipi scing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+                    {% if current_site.newsletter.tagline %}<p class="light-gray-font-color">{{ current_site.newsletter.tagline }}</p>
                 </div>
             </div>
         </div>
-        <!--end newsletter section-->
+        <!--end newsletter section-->{% endif %}
         <!--footer content-->
         <div class="light-ash-bg">
             <div class="container">
