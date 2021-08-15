@@ -29,7 +29,7 @@
                         <a href="{{ study.get_absolute_url }}" class="medium-btn2 btn btn-fill proDetModal">VIEW DETAILS</a>
                     </div>
                 </div>
-            </div>{% endfor %}
+            </div>{% empty %}<h4>No Case Study Found</h4>{% endfor %}
             <div class="col-xs-12">
                 <nav aria-label="Page navigation" class="pagination-case ">
                     <ul class="pagination justify-content-center">
